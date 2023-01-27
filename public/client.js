@@ -7,19 +7,10 @@ if(board != null){
     socket.emit('new-user', roomName, name);
 }
 
-// socket.on('user-connected', name => {
-//     appendMessage(`${name} connected`);
-// })
-
-// socket.on('user-disconnected', name => {
-//     appendMessage(`${name} disconnected`)
-// })
- 
-
 function onClickHandler(btn){
     if(!finished){
         var args = [];
-        //btn player com finished possible newplayer winner
+        //btn player com finished possible newplayer winner rooms
         args[0] = btn.getAttribute("cellId");
         args[1] = currPlayer;
         
@@ -29,7 +20,7 @@ function onClickHandler(btn){
     }
     if(!finished)
         changePalyer();
-    
+
     args[4] = possible
     if(finished && winner)
         args[2] = args[1] + " won!";
@@ -40,12 +31,10 @@ function onClickHandler(btn){
     args[5] = currPlayer;
     args[6] = winner;
     args[7] = roomName;
-    // console.log("Handler click");
     socket.emit('changed', args);
 }
 
 socket.on('buttonUpdate', function(data){
-    // console.log("Btn update");
     document.getElementById(data[0]).innerHTML = data[1];
     document.getElementById("statusText").innerHTML = data[2];
     currPlayer = data[5];
@@ -66,12 +55,22 @@ socket.on('updateReset', () => {
     restartGame();
 })
 
+socket.on('message', () => {
+    window.alert("Pokój nie istnieje albo jest pusty");
+})
+
+function backHandler(){
+    socket.emit('back', roomName);
+}
+
+
 socket.on('roomCreated', room => {
-    const roomElem = document.createElement('div');
-    roomElem.innerText = room;
     const roomLink = document.createElement('a');
+    const roomBlock = document.createElement('div');
     roomLink.href = `/${room}`;
-    roomLink.innerText = 'join';
-    roomContainer.append(roomElem);
-    roomContainer.append(roomLink);
+    roomLink.innerText = 'Join ' + `${room}`;
+    roomBlock.classList.add('cell');
+    roomLink.style.textDecoration = 'none';
+    roomBlock.appendChild(roomLink);
+    roomContainer.append(roomBlock);
 })

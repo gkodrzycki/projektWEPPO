@@ -9,15 +9,17 @@ app.set('view engine', 'ejs');
 app.use(express.static(('public')));   
 app.use(express.urlencoded({extended: true}));
 
-const rooms = {};
+const rooms = {new: {users: {} }};
 
 app.get('/', (req, res) => {
     res.render('index', {rooms: rooms})
 });
 
 app.get('/:room', (req, res) => {
-    if(rooms[req.params.room] == null)
+    if(rooms[req.params.room] == null || Object.keys(rooms[req.params.room].users).length == 2){
+        // io.to(res.socket.id).emit('message');
         return res.redirect('/');
+    }
     res.render('room', {roomName: req.params.room})
 });
  
@@ -26,15 +28,31 @@ app.post('/room', (req, res) => {
         return res.redirect('/');
     }
     rooms[req.body.room] = {users: {} }
-    res.redirect(req.body.room)
+    res.redirect('/');
     io.emit('roomCreated', req.body.room)
 })
 
-// const users = {};
-
 io.on('connection', (socket) => {
     socket.on('changed', data => {
-        console.log("Change server", data[7]);
+        var name = " ";  
+        var name2 = ""; 
+        if(Object.keys(rooms[data[7]].users).length == 2){
+            vals = Object.values(rooms[data[7]].users)
+            keys = Object.keys(rooms[data[7]].users)
+            if(keys[0] == socket.id){
+                name = vals[1];
+                name2 = vals[0];
+            }
+            else{
+                name = vals[0];
+                name2 = vals[1]
+            }
+
+            if(data[6] == false)
+                data[2] = name + "'s turn";
+            else
+                data[2] = name2 + " wins!";
+        }
         io.to(data[7]).emit('buttonUpdate', data)
     })
 
@@ -42,9 +60,17 @@ io.on('connection', (socket) => {
         io.to(room).emit('updateReset');
     })
 
+    socket.on('back', room => {
+        console.log("OKI>")
+        io.to(socket.id).emit('updateBack', socket.id);
+        // delete rooms[room].users[socket.id]
+    })
+    
     socket.on('new-user', (room, name) => {
         socket.join(room);
         rooms[room].users[socket.id] = name;
+        if(room != '/')
+            io.to(room).emit('updateReset');
     })
 
     socket.on('disconnect', () => {

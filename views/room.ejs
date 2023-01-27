@@ -34,9 +34,21 @@
             margin: auto;
             
         }
+        .Event{
+            width: fit-content;
+            height: 50px;
+            text-align: center;
+            border: 2px solid;
+            font-size: 40px;
+            cursor: pointer;
+        }
 
-        .Reset{
-            display: flex;
+        #buttonContainer{
+            align-self: flex;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            width: 250px;
+            height: 100px;
             margin: auto;
         }
         #gameContainer{
@@ -50,10 +62,10 @@
     </style>
 
 
-
-<div class="name">Tic Tac Toe</div>
-
-<button id='restartButton' onclick="resetHandler()" class="Reset">Restart</button>
+<div id="buttonContainer"> 
+    <button id='restartButton' onclick="resetHandler()" class="Event">Restart</button>
+    <button id='backButton' onclick="backHandler()" class="Event">Back</button>
+</div>
 <div id="gameContainer">
           <button id="0" cellId="0" onClick="onClickHandler(this)" class="cell"></button>
           <button id="1" cellId="1" onClick="onClickHandler(this)" class="cell"></button>
@@ -64,7 +76,7 @@
           <button id="6" cellId="6" onClick="onClickHandler(this)" class="cell"></button>
           <button id="7" cellId="7" onClick="onClickHandler(this)" class="cell"></button>
           <button id="8" cellId="8" onClick="onClickHandler(this)" class="cell"></button>
-        </div>
+</div>
         
         <div id='statusText' class="statusText"></div>
 
@@ -93,7 +105,7 @@
         function restartGame(){
             currPlayer = "X";
             possible = ["", "", "", "", "", "", "", "", ""];
-            statusText.textContent = `${currPlayer}'s turn`;
+            statusText.textContent = `You can begin!`;
             cells.forEach(cell => cell.textContent = "");
             
             for(let i = 0; i < 9; i++){
