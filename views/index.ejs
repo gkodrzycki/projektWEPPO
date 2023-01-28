@@ -14,9 +14,9 @@
     </form> 
     <div id="room-container">
         <% Object.keys(rooms).forEach(room => { %>
-            <div class="cell"><a class="link" href="/<%=room%>"><%=room%></a></div>
-            
-        <% }) %>
+            <% if (Object.keys(rooms[room].users).length < 2) { %>
+                <div class="cell"><a class="link" href="/<%=room%>"><%=room%></a></div>
+        <% }}) %>
     </div>
    </body>
 </html>
