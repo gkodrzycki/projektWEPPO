@@ -17,7 +17,6 @@ app.get('/', (req, res) => {
 
 app.get('/:room', (req, res) => {
     if(rooms[req.params.room] == null || Object.keys(rooms[req.params.room].users).length == 2){
-        // io.to(res.socket.id).emit('message');
         return res.redirect('/');
     }
     res.render('room', {roomName: req.params.room})
@@ -58,12 +57,6 @@ io.on('connection', (socket) => {
 
     socket.on('reset', room => {
         io.to(room).emit('updateReset');
-    })
-
-    socket.on('back', room => {
-        console.log("OKI>")
-        io.to(socket.id).emit('updateBack', socket.id);
-        // delete rooms[room].users[socket.id]
     })
     
     socket.on('new-user', (room, name) => {

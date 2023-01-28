@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Platforma</title>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="client.js"></script>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <style>
+        .cell{
+            width: fit-content;
+            height: 50px;
+            text-align: center;
+            border: 2px solid;
+            font-size: 40px;
+            cursor: pointer;
+            background-color: aqua;
+        }
+        #room-container{
+            display: block;
+            display: grid;
+            text-decoration: none;
+            grid-template-columns: repeat(1, auto);
+            margin: auto;
+        }
+        .info{
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin: auto;
+        }
+        .link{
+            text-decoration: none;
+        }
+        </style>
+
+    <div class="info">Rooms to join</div>
+    <div id="room-container">
+        <% Object.keys(rooms).forEach(room => { %>
+            <div class="cell"><a class="link" href="/<%=room%>">Join <%=room%></a></div>
+            
+        <% }) %>
+    </div>
+    <form action="/room" method="POST">
+        <input name="room" type="text" required>
+        <button type="submit">Create new room</button>
+    </form> 
+</body>
+</html>
