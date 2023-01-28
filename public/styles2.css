@@ -1,0 +1,49 @@
+.cell{
+    width: 100px;
+    height: 100px;
+    border: 2px solid;
+    box-shadow: 0 0 0 2px;
+    line-height: 100px;
+    font-size: 100px;
+    cursor: pointer;
+}
+
+.statusText{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: auto;
+}
+
+.name{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    margin: auto;
+    
+}
+.Event{
+    width: fit-content;
+    height: 50px;
+    text-align: center;
+    border: 2px solid;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+#buttonContainer{
+    align-self: flex;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: 250px;
+    height: 100px;
+    margin: auto;
+}
+#gameContainer{
+    display: flex;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 300px;
+    margin: auto;
+}

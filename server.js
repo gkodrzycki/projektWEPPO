@@ -39,16 +39,18 @@ io.on('connection', (socket) => {
             vals = Object.values(rooms[data[7]].users)
             keys = Object.keys(rooms[data[7]].users)
             if(keys[0] == socket.id){
-                name = vals[1];
+                name  = vals[1];
                 name2 = vals[0];
             }
             else{
-                name = vals[0];
+                name  = vals[0];
                 name2 = vals[1]
             }
 
-            if(data[6] == false)
+            if(data[6] == false && data[3] == false)
                 data[2] = name + "'s turn";
+            else if(data[6] == false && data[3] == true)
+                data[2] = "Draw!"
             else
                 data[2] = name2 + " wins!";
         }

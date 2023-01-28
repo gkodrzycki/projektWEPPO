@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Platforma</title>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="client.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="info">Rooms to join</div>
+    <form action="/room" method="POST">
+        <input name="room" type="text" required>
+        <button type="submit">Create new room</button>
+    </form> 
+    <div id="room-container">
+        <% Object.keys(rooms).forEach(room => { %>
+            <div class="cell"><a class="link" href="/<%=room%>"><%=room%></a></div>
+            
+        <% }) %>
+    </div>
+   </body>
+</html>

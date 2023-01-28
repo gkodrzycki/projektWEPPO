@@ -1,0 +1,27 @@
+.cell{
+    display: inline-block;
+    width: fit-content;
+    height: 50px;
+    text-align: center;
+    border: 2px solid;
+    font-size: 40px;
+    cursor: pointer;
+    background-color: aqua;
+}
+#room-container{
+    display: grid;
+    text-decoration: none;
+    grid-template-columns: repeat(9, auto);
+    margin: auto;
+}
+.info{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: auto;
+}
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+/*****************************/
