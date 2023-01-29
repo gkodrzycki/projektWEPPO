@@ -1,28 +1,25 @@
-* {
-	box-sizing: border-box;
-}
-
 body {
 	margin: 0;
 	padding: clamp(1rem, 2vw, 3rem);
-	font-family: "Open Sans", sans-serif;
+	font-family: "Open Sans", cursive;
+    background: linear-gradient( #9bc2eb, #dbf0a3);
+    background-attachment: fixed;
+    text-align: center;
 }
 
+/* Guardian-style list */
+
 #room-container {
-	max-width: 80rem;
-	margin: 0 auto;
+	margin: 5 auto;
 }
 
 ol {
 	list-style: none;
 	padding: 1.5rem;
-	border: 0.1rem solid lightgrey;
 	columns: 20rem;
 	column-gap: 4rem;
-	column-rule: 0.2rem dotted turquoise;
 	border-radius: 0.5rem;
 }
-
 
 li {
 	--y: calc(100% - 2rem);
@@ -69,15 +66,48 @@ li span:last-of-type {
 	font-style: italic;
 	padding-bottom: 1rem;
 }
+/*End guardian-style list*/
+
+/*New room btn */  
+.button {
+    background-color: #f900aa;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin: 4px 2px;
+    border-radius: 90%;
+  }
+/*End new btn*/ 
+
+/* New box*/
+input:focus::placeholder {
+    color: transparent;
+  }
+
+input { 
+    position: relative;
+    font-family: "Open Sans", cursive;
+    background-color: rgb(217, 230, 235);
+    height: 20px; 
+    padding: 10px; 
+}
+/* End new box */
+
 
 
 .info{
-    text-align: center;
-    font-size: 30px;
+    font-size: 80px;
     font-weight: bold;
     margin: auto;
+    font-family: "Open Sans", cursive;
 }
 .link{
     text-decoration: none;
+    font-size: xx-large;
     color: inherit;
 }

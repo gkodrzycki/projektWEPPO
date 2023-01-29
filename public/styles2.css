@@ -1,3 +1,8 @@
+body {
+    background: linear-gradient(#dbf0a3, #9bc2eb);
+    background-attachment: fixed;
+}
+
 .cell{
     width: 100px;
     height: 100px;

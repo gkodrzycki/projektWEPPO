@@ -8,19 +8,21 @@
 </head> 
 <body>
     <!-- Napis -->
-    <div class="info">Rooms to join</div>
+    <div class="info">Rooms</div>
     
     <!-- Do tworzenia nowego -->
-    <form action="/room" method="POST">
-        <input name="room" type="text" required>
-        <button type="submit">Create new room</button>
-    </form> 
+    <div id="search">
+            <form action="/room" method="POST" autocomplete="off">
+                <input name="room" type="text" placeholder="Podaj nazwę pokoju" required>
+                <button class="button" type="submit">+</button>
+            </form> 
+    </div>
     
     <!-- Pokoje -->
     <ol id="room-container">
             <% Object.keys(rooms).forEach(room => { %>
                 <li>
-                    <span><a id="link" class="link" href="/<%=room%>"><%=room%></a></span>
+                    <span><a class="link" href="/<%=room%>"><%=room%></a></span>
                     <% }) %>
                 </li>
     </ol>
