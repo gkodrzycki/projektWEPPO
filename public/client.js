@@ -7,11 +7,12 @@ if(board != null){
     socket.emit('new-user', roomName, name);
 }
 
+//Zebranie informacji po wyborze pola
 function onClickHandler(btn){   
     if(possible[btn.getAttribute("cellId")] == ""){
         if(!finished){
             var args = [];
-        //btn player com finished possible newplayer winner rooms
+        //btn player com finished possible newplayer winner room
         args[0] = btn.getAttribute("cellId");
         args[1] = currPlayer;
         
@@ -31,6 +32,7 @@ function onClickHandler(btn){
     }
 }
 
+//Update stanu planszy
 socket.on('buttonUpdate', function(data){
     document.getElementById(data[0]).innerHTML = data[1];
     document.getElementById("statusText").innerHTML = data[2];
@@ -41,6 +43,20 @@ socket.on('buttonUpdate', function(data){
         document.getElementById(data[0]).style.backgroundColor = "blue";
     possible = data[4];
     finished = data[3];
+})
+
+socket.on('getState', data => {
+    for(let i = 0; i < 9; i++){
+        if(data[0][i] == "X"){
+            document.getElementById(i).style.backgroundColor = "red";
+            document.getElementById(i).textContent = "X";
+        }
+        else if(data[0][i] == "O"){
+            document.getElementById(i).style.backgroundColor = "blue";
+            document.getElementById(i).textContent = "O";
+        }
+    }
+    document.getElementById("statusText").innerHTML = data[1];
 })
 
 function resetHandler(){
@@ -65,5 +81,6 @@ socket.on('roomCreated', room => {
     roomBlock.classList.add('cell');
     roomLink.style.textDecoration = 'none';
     roomBlock.appendChild(roomLink);
+    roomBlock.setAttribute("id", room);
     roomContainer.append(roomBlock);
 })

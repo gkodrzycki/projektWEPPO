@@ -53,7 +53,9 @@
             function restartGame(){
                 currPlayer = "X";
                 possible = ["", "", "", "", "", "", "", "", ""];
-                statusText.textContent = `You can begin!`;
+                finished = false;
+                winner = false;
+                statusText.textContent = `Let's begin!`;
                 cells.forEach(cell => cell.textContent = "");
                 
                 for(let i = 0; i < 9; i++){
@@ -80,7 +82,6 @@
                     currPlayer = "O";
                 else
                     currPlayer = "X";
-                statusText.textContent = `${currPlayer}'s turn`; 
             }
 
             function checkwinner(){
@@ -102,12 +103,10 @@
                 }
                 
                 if(won){
-                    statusText.textContent = `${currPlayer} won!`; 
                     finished = true;
                     winner = true;
                 }
                 else if(!possible.includes("")){
-                    statusText.textContent = `Draw!`; 
                     finished = true;
                 }
                 else{
