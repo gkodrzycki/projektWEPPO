@@ -12,7 +12,7 @@
 <body>
     <div id="buttonContainer"> 
         <button id='restartButton' onclick="resetHandler()" class="Event">Restart</button>
-        <button class="Event"><a href="/" style="text-decoration: none; color: inherit;" >Back</a></button>
+        <button class="Event"><a href="/" style="text-decoration: none; color: inherit;" >Quit</a></button>
     </div>
     <div id="gameContainer">
             <button id="0" cellId="0" onClick="onClickHandler(this)" class="cell"></button>
@@ -28,11 +28,11 @@
             
             <div id='statusText' class="statusText"></div>
 
-        <!-- cała logika gry--> 
+        <!-- Game logic --> 
         <script>    
-            const cells = document.querySelectorAll(".cell");
-            const statusText = document.querySelector("#statusText");
-            const restartButton = document.querySelector("#restartButton");
+            const cells = document.querySelectorAll(".cell")
+            const statusText = document.querySelector("#statusText")
+            const restartButton = document.querySelector("#restartButton")
             const wininng = [
                 [0, 1, 2],
                 [3, 4, 5],
@@ -42,46 +42,46 @@
                 [2, 5, 8],
                 [0, 4, 8],
                 [2, 4, 6]
-            ];
+            ]
 
-            let possible = ["", "", "", "", "", "", "", "", ""];
-            let currPlayer = "X";
-            let finished = false;
-            let winner = false;
-            statusText.textContent = `${currPlayer}'s turn`;
+            let possible = ["", "", "", "", "", "", "", "", ""]
+            let currPlayer = "X"
+            let finished = false
+            let winner = false
+            statusText.textContent = `${currPlayer}'s turn`
 
             function restartGame(){
                 currPlayer = "X";
-                possible = ["", "", "", "", "", "", "", "", ""];
-                finished = false;
-                winner = false;
+                possible = ["", "", "", "", "", "", "", "", ""]
+                finished = false
+                winner = false
                 statusText.textContent = `Let's begin!`;
-                cells.forEach(cell => cell.textContent = "");
+                cells.forEach(cell => cell.textContent = "")
                 
                 for(let i = 0; i < 9; i++){
-                    document.getElementById(i).style.backgroundColor = "";
+                    document.getElementById(i).style.backgroundColor = ""
                 }
-                finished = false;
+                finished = false
             }
 
             function cellChosen(cellId){
-                if(possible[cellId] != "" || finished){
-                    return;
+                if (possible[cellId] != "" || finished) {
+                    return
                 }
-                updateCell(cellId);
-                checkwinner();
+                updateCell(cellId)
+                checkwinner()
             }
 
             function updateCell(index){
-                possible[index] = currPlayer;
-                cells[index].textContent = currPlayer;
+                possible[index] = currPlayer
+                cells[index].textContent = currPlayer
             }
 
             function changePalyer(){
                 if(currPlayer == "X")
-                    currPlayer = "O";
+                    currPlayer = "O"
                 else
-                    currPlayer = "X";
+                    currPlayer = "X"
             }
 
             function checkwinner(){
@@ -89,28 +89,26 @@
 
                 for(let i = 0; i < wininng.length; i++){
                     const state = wininng[i];
-                    const cell1 = possible[state[0]];
-                    const cell2 = possible[state[1]];
-                    const cell3 = possible[state[2]];
+                    const cell1 = possible[state[0]]
+                    const cell2 = possible[state[1]]
+                    const cell3 = possible[state[2]]
                     
-                    if(cell1 == "" || cell2 == "" || cell3 == ""){
-                        continue;
-                    }
-                    else if(cell1 == cell2 && cell2 == cell3){
-                        won = true;
-                        break;
+                    if (cell1 == "" || cell2 == "" || cell3 == "") {
+                        continue
+                    } else if(cell1 == cell2 && cell2 == cell3){
+                        won = true
+                        break
                     }
                 }
                 
-                if(won){
-                    finished = true;
-                    winner = true;
-                }
-                else if(!possible.includes("")){
-                    finished = true;
+                if (won) {
+                    finished = true
+                    winner = true
+                } else if (!possible.includes("")) {
+                    finished = true
                 }
                 else{
-                    changePalyer();
+                    changePalyer()
                 }
     }
     </script>
