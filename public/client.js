@@ -62,12 +62,18 @@ socket.on('getState', data => {
         }
     }
     document.getElementById("statusText").innerHTML = data[1]
+    document.querySelector("var").innerHTML = data[2]
 })
 
 //Manage clicked reset button
 function resetHandler(){
     restartGame()
     socket.emit('reset', roomName)
+}
+
+//Manage clicked quit button
+function quitHandler(){
+     socket.emit('disconnect')
 }
 
 //Reser board state

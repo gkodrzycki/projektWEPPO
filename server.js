@@ -27,7 +27,7 @@ app.get('/:room', (req, res) => {
 
 //Create room
 app.post('/room', (req, res) => {
-    //if room already exists there is no point to make 2nd with the same name
+    //if room already exists there is no point in making 2nd with the same name
     if (rooms[req.body.room] != null) {
         return res.redirect('/')
     }
@@ -73,15 +73,16 @@ io.on('connection', (socket) => {
             rooms[room].move = rooms[room].player1
             rooms[room].comment = Object.values(rooms[room].move)[0] + "'s turn!"
             rooms[room].state = ["", "", "", "", "", "", "", "", ""]
+            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
             io.to(room).emit('getState', data)
         } else if (Object.keys(rooms[room].move)[0] != socket.id && Object.keys(rooms[room].users).length >= 2) {
-            data =[rooms[room].state, rooms[room].comment]
+            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
             io.to(room).emit('getState', data)
         } else {
             io.to(room).emit('updateReset')
             rooms[room].comment = "Waiting for opponent..."
             rooms[room].state = ["", "", "", "", "", "", "", "", ""]
-            data =[rooms[room].state, rooms[room].comment]
+            data =[rooms[room].state, rooms[room].comment, 0]
             io.to(room).emit('getState', data)
         }
     })
@@ -108,10 +109,10 @@ io.on('connection', (socket) => {
             else if (Object.keys(rooms[room].users).length == 2)
             rooms[room].comment = Object.values(rooms[room].move)[0] + "'s turn!"
             
-            data =[rooms[room].state, rooms[room].comment]
+            data =[rooms[room].state, rooms[room].comment, 0]
             io.to(room).emit('getState', data)
         } else if (room != '/' && Object.keys(rooms[room].users).length > 2) {
-            data =[rooms[room].state, rooms[room].comment]
+            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
             io.to(room).emit('getState', data)
         }
     })
@@ -126,7 +127,7 @@ io.on('connection', (socket) => {
                 rooms[room].player2 = temp 
                 rooms[room].comment = "Waiting for opponent..."
                 rooms[room].state = ["", "", "", "", "", "", "", "", ""]
-                data =[rooms[room].state, rooms[room].comment]
+                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
                 io.to(room).emit('getState', data)
             } else if(socket.id == Object.keys(rooms[room].player2)) {
                 rooms[room].move = rooms[room].player1
@@ -134,8 +135,11 @@ io.on('connection', (socket) => {
                 rooms[room].player2 = temp
                 rooms[room].comment = "Waiting for opponent..."
                 rooms[room].state = ["", "", "", "", "", "", "", "", ""]
-                data =[rooms[room].state, rooms[room].comment]
+                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
                 io.to(room).emit('getState', data) 
+            } else {
+                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 3]
+                io.to(room).emit('getState', data)
             }
             delete rooms[room].users[socket.id]
         })

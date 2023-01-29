@@ -1,15 +1,18 @@
 body {
     background: linear-gradient(#dbf0a3, #9bc2eb);
     background-attachment: fixed;
+    font-family: "Open Sans", cursive;
+    text-align: center;
 }
 
 .cell{
-    width: 100px;
-    height: 100px;
+    font-family: "Open Sans", cursive;
+    width: 180px;
+    height: 180px;
     border: 2px solid;
     box-shadow: 0 0 0 2px;
-    line-height: 100px;
-    font-size: 100px;
+    line-height: 180px;
+    font-size: 180px;
     cursor: pointer;
 }
 
@@ -28,12 +31,14 @@ body {
     
 }
 .Event{
+    font-family: "Open Sans", cursive;
     width: fit-content;
     height: 50px;
-    text-align: center;
+    text-align: top;
     border: 2px solid;
     font-size: 40px;
     cursor: pointer;
+    margin: 5px;
 }
 
 #buttonContainer{
@@ -49,6 +54,6 @@ body {
     text-align: center;
     display: grid;
     grid-template-columns: repeat(3, auto);
-    width: 300px;
+    width: 540px;
     margin: auto;
 }
