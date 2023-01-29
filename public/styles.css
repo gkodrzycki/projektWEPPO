@@ -1,19 +1,76 @@
-.cell{
-    display: inline-block;
-    width: fit-content;
-    height: 50px;
-    text-align: center;
-    border: 2px solid;
-    font-size: 40px;
-    cursor: pointer;
-    background-color: aqua;
+* {
+	box-sizing: border-box;
 }
-#room-container{
-    display: grid;
-    text-decoration: none;
-    grid-template-columns: repeat(9, auto);
-    margin: auto;
+
+body {
+	margin: 0;
+	padding: clamp(1rem, 2vw, 3rem);
+	font-family: "Open Sans", sans-serif;
 }
+
+#room-container {
+	max-width: 80rem;
+	margin: 0 auto;
+}
+
+ol {
+	list-style: none;
+	padding: 1.5rem;
+	border: 0.1rem solid lightgrey;
+	columns: 20rem;
+	column-gap: 4rem;
+	column-rule: 0.2rem dotted turquoise;
+	border-radius: 0.5rem;
+}
+
+
+li {
+	--y: calc(100% - 2rem);
+	display: grid;
+	grid-template-columns: minmax(3.75em, auto) 1fr;
+	gap: 0 0.5em;
+	break-inside: avoid;
+    page-break-inside: avoid;
+	background: radial-gradient(circle at 30% var(--y), rgb(50 50 50), rgb(0 0 0));
+	color: white;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	box-shadow: 0.25rem 0.25rem 0.5rem rgb(0 0 0 / 0.17)
+}
+
+li + li {
+	margin-top: 1rem;
+}
+
+li::before {
+	counter-increment: list-item 1;
+	content: counter(list-item);
+	font-weight: 700;
+	font-size: 4.5em;
+	letter-spacing: -0.125em;
+	line-height: 1;
+	color: turquoise;
+	grid-column: 1;
+	grid-row: span 2;
+	align-self: end;
+	margin: 0 0 -0.15em -0.15em;
+}
+
+li span {
+	grid-column: 2;
+}
+
+li span:first-of-type {
+	font-size: 1.5em;
+	padding-top: 1rem;
+}
+
+li span:last-of-type {
+	font-style: italic;
+	padding-bottom: 1rem;
+}
+
+
 .info{
     text-align: center;
     font-size: 30px;
@@ -24,4 +81,3 @@
     text-decoration: none;
     color: inherit;
 }
-/*****************************/

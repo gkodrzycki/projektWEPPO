@@ -7,15 +7,28 @@
     <link rel="stylesheet" href="styles.css">
 </head> 
 <body>
+    <!-- Napis -->
     <div class="info">Rooms to join</div>
+    
+    <!-- Do tworzenia nowego -->
     <form action="/room" method="POST">
         <input name="room" type="text" required>
         <button type="submit">Create new room</button>
     </form> 
-    <div id="room-container">
-        <% Object.keys(rooms).forEach(room => { %>
-                <div class="cell"><a class="link" href="/<%=room%>"><%=room%></a></div>
-        <% }) %>
-    </div>
-   </body>
+    
+    <!-- Pokoje -->
+    <ol id="room-container">
+            <% Object.keys(rooms).forEach(room => { %>
+                <li>
+                    <span><a id="link" class="link" href="/<%=room%>"><%=room%></a></span>
+                    <% }) %>
+                </li>
+    </ol>
+   
+    <script>
+        function refresh(){
+            window.location.reload()
+        }
+    </script>
+    </body>
 </html>

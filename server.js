@@ -95,16 +95,18 @@ io.on('connection', (socket) => {
             rooms[room].move[socket.id] = name
         } else if (Object.keys(rooms[room].users).length == 2)
             rooms[room].player2[socket.id] = name
-
+        
+        
         //clean current state of game or emit it to new user
         if (room != '/' && Object.keys(rooms[room].users).length <= 2) {
             io.to(room).emit('updateReset')
             rooms[room].state = ["", "", "", "", "", "", "", "", ""]
             
-            if (Object.keys(rooms[room].users).length == 1)
+            if (Object.keys(rooms[room].users).length == 1){
                 rooms[room].comment = "Waiting for opponent..."
+            }
             else if (Object.keys(rooms[room].users).length == 2)
-                rooms[room].comment = Object.values(rooms[room].move)[0] + "'s turn!"
+            rooms[room].comment = Object.values(rooms[room].move)[0] + "'s turn!"
             
             data =[rooms[room].state, rooms[room].comment]
             io.to(room).emit('getState', data)

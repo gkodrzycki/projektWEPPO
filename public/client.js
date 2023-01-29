@@ -75,20 +75,27 @@ socket.on('updateReset', () => {
     restartGame()
 })
 
-socket.on('message', () => {
-    window.alert("Pokój nie istnieje albo jest pusty")
-})
-
 //Handle creating new room
 socket.on('roomCreated', room => {
-    const roomLink = document.createElement('a')
-    const roomBlock = document.createElement('div')
+    var roomLink = document.createElement('a')
+    var roomBlock = document.createElement('div')
+    var roomSpan = document.createElement('span')
+    var roomNode = document.createElement('li');
+    var element = document.querySelector('li') 
+
     roomLink.href = `/${room}`
     roomLink.innerText = `${room}`
-    roomBlock.classList.add('cell')
     roomLink.style.textDecoration = 'none'
     roomLink.style.color = "inherit"
-    roomBlock.appendChild(roomLink)
+    
+    roomSpan.appendChild(roomLink)
+    roomNode.appendChild(roomSpan)
+
+    roomBlock.appendChild(roomNode)
     roomBlock.setAttribute("id", room)
+
+    window.getComputedStyle(element, roomBlock)
+    roomBlock.style.marginTop = "1rem"
     roomContainer.append(roomBlock)
+    refresh()
 })
