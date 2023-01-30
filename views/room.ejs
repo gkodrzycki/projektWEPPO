@@ -60,7 +60,7 @@
                 statusText.textContent = `Let's begin!`;
                 cells.forEach(cell => cell.textContent = "")
                 
-                for(let i = 0; i < 9; i++){
+                for (let i = 0; i < 9; i++) {
                     document.getElementById(i).style.backgroundColor = ""
                 }
                 finished = false
@@ -76,11 +76,10 @@
 
             function updateCell(index){
                 possible[index] = currPlayer
-                // cells[index].textContent = currPlayer
             }
 
             function changePalyer(){
-                if(currPlayer == "X")
+                if (currPlayer == "X")
                     currPlayer = "O"
                 else
                     currPlayer = "X"
@@ -89,7 +88,7 @@
             function checkwinner(){
                 let won = false;
 
-                for(let i = 0; i < wininng.length; i++){
+                for (let i = 0; i < wininng.length; i++) {
                     const state = wininng[i];
                     const cell1 = possible[state[0]]
                     const cell2 = possible[state[1]]
@@ -97,7 +96,7 @@
                     
                     if (cell1 == "" || cell2 == "" || cell3 == "") {
                         continue
-                    } else if(cell1 == cell2 && cell2 == cell3){
+                    } else if (cell1 == cell2 && cell2 == cell3) {
                         won = true
                         break
                     }
@@ -109,7 +108,7 @@
                 } else if (!possible.includes("")) {
                     finished = true
                 }
-                else{
+                else {
                     changePalyer()
                 }
     }
