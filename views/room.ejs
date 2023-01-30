@@ -14,7 +14,7 @@
     <div>Vivers: <var id="count">0</var></div>
     <div id="buttonContainer"> 
         <button id='restartButton' onclick="resetHandler()" class="Event">Restart</button>
-        <button class="Event" onclick="quitHandler()""><a href="/" style="text-decoration: none; color: inherit;" >Quit</a></button>
+        <button class="Event" onclick="quitHandler()"><a href="/" style="text-decoration: none; color: inherit;" >Quit</a></button>
     </div>
     <div id="gameContainer">
             <button id="0" cellId="0" onClick="onClickHandler(this)" class="cell"></button>
@@ -57,7 +57,6 @@
                 possible = ["", "", "", "", "", "", "", "", ""]
                 finished = false
                 winner = false
-                statusText.textContent = `Let's begin!`;
                 cells.forEach(cell => cell.textContent = "")
                 
                 for (let i = 0; i < 9; i++) {

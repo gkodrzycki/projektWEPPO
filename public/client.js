@@ -59,8 +59,15 @@ socket.on('getState', data => {
         } else if(data[0][i] == "O") {
             document.getElementById(i).style.backgroundColor = "blue"
             document.getElementById(i).textContent = "O"
+        } else {
+            document.getElementById(i).textContent = ""
         }
+        
+        if(data[3])
+            document.getElementById(i).style.backgroundColor = ""
     }
+
+
     document.getElementById("statusText").innerHTML = data[1]
     document.querySelector("var").innerHTML = data[2]
 })

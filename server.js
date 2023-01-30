@@ -1,3 +1,4 @@
+const e = require('express')
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
@@ -63,6 +64,9 @@ io.on('connection', (socket) => {
             rooms[data[7]].comment = data[2]
             //Update for everyone
             io.to(data[7]).emit('buttonUpdate', data)
+        } else {
+            update = [rooms[data[7]].state, rooms[data[7]].comment, Object.keys(rooms[data[7]].users).length - 2]
+            io.to(data[7]).emit('getState', update)
         }
     })
 
@@ -109,10 +113,10 @@ io.on('connection', (socket) => {
             else if (Object.keys(rooms[room].users).length == 2)
             rooms[room].comment = Object.values(rooms[room].move)[0] + "'s turn!"
             
-            data =[rooms[room].state, rooms[room].comment, 0]
+            data =[rooms[room].state, rooms[room].comment, 0, false]
             io.to(room).emit('getState', data)
         } else if (room != '/' && Object.keys(rooms[room].users).length > 2) {
-            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
+            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2, false]
             io.to(room).emit('getState', data)
         }
     })
@@ -127,7 +131,7 @@ io.on('connection', (socket) => {
                 rooms[room].player2 = temp 
                 rooms[room].comment = "Waiting for opponent..."
                 rooms[room].state = ["", "", "", "", "", "", "", "", ""]
-                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
+                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2, true]
                 io.to(room).emit('getState', data)
             } else if(socket.id == Object.keys(rooms[room].player2)) {
                 rooms[room].move = rooms[room].player1
@@ -135,10 +139,10 @@ io.on('connection', (socket) => {
                 rooms[room].player2 = temp
                 rooms[room].comment = "Waiting for opponent..."
                 rooms[room].state = ["", "", "", "", "", "", "", "", ""]
-                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
+                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2, true]
                 io.to(room).emit('getState', data) 
             } else {
-                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 3]
+                data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 3, false]
                 io.to(room).emit('getState', data)
             }
             delete rooms[room].users[socket.id]
