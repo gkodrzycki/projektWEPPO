@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="styles2.css">
     <script>
         const roomName = "<%= roomName %>"
-        const Vievers = 0;
+        const Viewers = 0;
     </script>
 </head>
 <body>
-    <div>Vivers: <var id="count">0</var></div>
+    <div>Viewers: <var id="count">0</var></div>
     <div id="buttonContainer"> 
         <button id='restartButton' onclick="resetHandler()" class="Event">Restart</button>
         <button class="Event" onclick="quitHandler()"><a href="/" style="text-decoration: none; color: inherit;" >Quit</a></button>
@@ -50,7 +50,6 @@
             let currPlayer = "X"
             let finished = false
             let winner = false
-            statusText.textContent = `${currPlayer}'s turn`
 
             function restartGame(){
                 currPlayer = "X";

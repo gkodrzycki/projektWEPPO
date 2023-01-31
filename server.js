@@ -77,16 +77,16 @@ io.on('connection', (socket) => {
             rooms[room].move = rooms[room].player1
             rooms[room].comment = Object.values(rooms[room].move)[0] + "'s turn!"
             rooms[room].state = ["", "", "", "", "", "", "", "", ""]
-            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
+            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2, true]
             io.to(room).emit('getState', data)
         } else if (Object.keys(rooms[room].move)[0] != socket.id && Object.keys(rooms[room].users).length >= 2) {
-            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2]
+            data =[rooms[room].state, rooms[room].comment, Object.keys(rooms[room].users).length - 2, false]
             io.to(room).emit('getState', data)
         } else {
             io.to(room).emit('updateReset')
             rooms[room].comment = "Waiting for opponent..."
             rooms[room].state = ["", "", "", "", "", "", "", "", ""]
-            data =[rooms[room].state, rooms[room].comment, 0]
+            data =[rooms[room].state, rooms[room].comment, 0, false]
             io.to(room).emit('getState', data)
         }
     })
